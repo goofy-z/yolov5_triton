@@ -1,1 +1,0 @@
-sudo docker run -it --rm --net=host -v/home/ls/projects/yolov5_client:/workspace/yolov5-client nvcr.io/nvidia/tritonserver:21.11-py3-sdk

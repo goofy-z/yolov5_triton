@@ -1,0 +1,1 @@
+sudo docker run --gpus "device=3" -it --rm --net=host -v/home/ubantu/lishuang_project/yolov5_triton/yolov5/:/workspace/yolov5 nvcr.io/nvidia/pytorch:21.10-py3
