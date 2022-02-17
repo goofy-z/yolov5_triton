@@ -1,1 +1,1 @@
-sudo docker run -it --rm --net=host --shm-size=1g --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -v/home/ubantu/lishuang_project/yolov5_triton/yolov5_client:/workspace/ nvcr.io/nvidia/tritonserver:21.11-py3-sdk 
+sudo docker run -it --rm --net=host --shm-size=1g --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -v/home/ubantu/lishuang_project/yolov5_triton/yolov5_client:/workspace/yolov5_client nvcr.io/nvidia/tritonserver:21.11-py3-sdk 
