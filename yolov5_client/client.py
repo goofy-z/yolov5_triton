@@ -4,6 +4,7 @@ import argparse
 import numpy as np
 import sys
 import cv2
+import time
 
 import tritonclient.grpc as grpcclient
 from tritonclient.utils import InferenceServerException
@@ -281,11 +282,12 @@ if __name__ == '__main__':
             input_image_buffer = np.expand_dims(input_image_buffer, axis=0)
             inputs[0].set_data_from_numpy(input_image_buffer)
 
+            t = time.time()
             results = triton_client.infer(model_name=FLAGS.model,
                                     inputs=inputs,
                                     outputs=outputs,
                                     client_timeout=FLAGS.client_timeout)
-
+            print(f"speeds one infer = {time.time() - t}")
             result = results.as_numpy('output')
 
             detected_objects = postprocess(result, frame.shape[1], frame.shape[0], [FLAGS.width, FLAGS.height], FLAGS.confidence, FLAGS.nms)
@@ -294,7 +296,7 @@ if __name__ == '__main__':
 
             for box in detected_objects:
                 print(f"{COCOLabels(box.classID).name}:{box.confidence}")
-                plot_one_box(box.box(), input_image,color=tuple(RAND_COLORS[box.classID % 64].tolist()), label=f"{COCOLabels(box.classID).name}: {box.confidence:.2f}",)   
+                plot_one_box(box.box(), frame,color=tuple(RAND_COLORS[box.classID % 64].tolist()), label=f"{COCOLabels(box.classID).name}: {box.confidence:.2f}",)   
 
             if FLAGS.out:
                 out.write(frame)
